@@ -1,4 +1,4 @@
-📅 Daily Task Scheduler (Java Project)
+📅 Schedulo - Daily Task Scheduler 
 
 📌 Project Description
 
