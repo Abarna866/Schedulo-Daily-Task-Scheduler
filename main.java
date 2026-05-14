@@ -8,156 +8,50 @@ public class Main {
 
         Scheduler scheduler = new Scheduler();
 
+        AuthService authService = new AuthService();
+
         while (true) {
 
-            TaskManager.displayHeader();
+            System.out.println("\n===== SCHEDULO LOGIN SYSTEM =====");
 
-            System.out.println("1. Add Task");
-            System.out.println("2. View All Tasks");
-            System.out.println("3. Search Task");
-            System.out.println("4. Update Task");
-            System.out.println("5. Delete Task");
-            System.out.println("6. Mark Task as Completed");
-            System.out.println("7. View Completed Tasks");
-            System.out.println("8. View Pending Tasks");
-            System.out.println("9. Exit");
+            System.out.println("1. Register");
+            System.out.println("2. Login");
+            System.out.println("3. Exit");
 
-            System.out.print("\nEnter your choice: ");
+            System.out.print("Enter Choice : ");
 
-            int choice;
+            int authChoice =
+                    Integer.parseInt(scanner.nextLine());
 
-            try {
-
-                choice = Integer.parseInt(scanner.nextLine());
-
-            } catch (Exception e) {
-
-                System.out.println("Invalid input.");
-                continue;
-            }
-
-            switch (choice) {
+            switch (authChoice) {
 
                 case 1:
 
-                    System.out.print("\nEnter Task Title        : ");
-                    String title = scanner.nextLine();
-
-                    System.out.print("Enter Task Description  : ");
-                    String description = scanner.nextLine();
-
-                    System.out.print("Enter Task Priority (High/Medium/Low): ");
-                    String priority = scanner.nextLine();
-
-                    System.out.print("Enter Due Date (DD-MM-YYYY): ");
-                    String dueDate = scanner.nextLine();
-
-                    System.out.print("Enter Task Time : ");
-                    String time = scanner.nextLine();
-
-                    scheduler.addTask(
-                            title,
-                            description,
-                            priority,
-                            dueDate,
-                            time
-                    );
+                    authService.register(scanner);
 
                     break;
 
                 case 2:
 
-                    scheduler.viewTasks();
+                    boolean loggedIn =
+                            authService.login(scanner);
+
+                    if (loggedIn) {
+
+                        scheduler.start(scanner);
+                    }
 
                     break;
 
                 case 3:
 
-                    System.out.print("\nEnter keyword to search: ");
-                    String keyword = scanner.nextLine();
-
-                    scheduler.searchTask(keyword);
-
-                    break;
-
-                case 4:
-
-                    scheduler.viewTasks();
-
-                    System.out.print("\nEnter Task ID to update: ");
-                    int updateId = Integer.parseInt(scanner.nextLine());
-
-                    System.out.print("Enter New Title       : ");
-                    String newTitle = scanner.nextLine();
-
-                    System.out.print("Enter New Description : ");
-                    String newDesc = scanner.nextLine();
-
-                    System.out.print("Enter New Priority    : ");
-                    String newPriority = scanner.nextLine();
-
-                    System.out.print("Enter New Due Date    : ");
-                    String newDate = scanner.nextLine();
-
-                    System.out.print("Enter New Time        : ");
-                    String newTime = scanner.nextLine();
-
-                    scheduler.updateTask(
-                            updateId,
-                            newTitle,
-                            newDesc,
-                            newPriority,
-                            newDate,
-                            newTime
-                    );
-
-                    break;
-
-                case 5:
-
-                    scheduler.viewTasks();
-
-                    System.out.print("\nEnter Task ID to delete: ");
-
-                    int deleteId = Integer.parseInt(scanner.nextLine());
-
-                    scheduler.deleteTask(deleteId);
-
-                    break;
-
-                case 6:
-
-                    scheduler.viewTasks();
-
-                    System.out.print("\nEnter Task ID to mark completed: ");
-
-                    int completeId = Integer.parseInt(scanner.nextLine());
-
-                    scheduler.completeTask(completeId);
-
-                    break;
-
-                case 7:
-
-                    scheduler.viewCompletedTasks();
-
-                    break;
-
-                case 8:
-
-                    scheduler.viewPendingTasks();
-
-                    break;
-
-                case 9:
-
-                    TaskManager.exitMessage();
+                    System.out.println("Exiting Application.");
 
                     System.exit(0);
 
                 default:
 
-                    System.out.println("Invalid choice.");
+                    System.out.println("Invalid Choice.");
             }
         }
     }
